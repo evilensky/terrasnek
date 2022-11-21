@@ -89,7 +89,7 @@ class TFCEndpoint(ABC):
             raise TFCHTTPUnclassified(err)
 
     # pylint: disable=too-many-statements,too-many-branches
-    def _get(self, url, return_raw=None, allow_redirects=None, query=None, filters=None, \
+    def _get(self, url, return_raw=None, allow_redirects=False, query=None, filters=None, \
         page=None, page_size=None, search=None, include=None, sort=None, \
         offset=None, limit=None, provider=None, namespace=None, verified=None, \
         since=None):
