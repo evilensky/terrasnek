@@ -49,6 +49,7 @@ class TFCPlans(TFCEndpoint):
             url = f"{self._runs_base_url}/{run_id}/plan/json-output"
         else:
             self._logger.error("Arguments plan_id or run_id must be defined")
+            raise ValueError("Arguments plan_id or run_id must be defined")
 
         results = self._get(url, return_raw=True, allow_redirects=True)
 
