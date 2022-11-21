@@ -297,7 +297,11 @@ class TFCEndpoint(ABC):
         headers = dict.copy(self._headers)
         if octet is True:
             headers["Content-Type"] = "application/octet-stream"
-            data = bytes(data, "utf-8")
+            if isinstance(data, str):  # type narrowing since bytes() doesn't accept bytes
+                data = bytes(data, "utf-8")
+            elif isinstance(data, bytes):
+                data = data
+                # requests.post(data) also accepts a file-like object and dict, but do we?
 
         self._logger.debug(f"Trying HTTP PUT to URL: {url} ...")
         req = requests.put(url, data=data, headers=headers, verify=self._verify)
