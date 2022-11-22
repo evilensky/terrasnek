@@ -31,7 +31,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -57,7 +57,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -80,7 +80,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -103,7 +103,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -128,7 +128,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             self.common_args["allow_redirects"] = False
 
@@ -144,7 +144,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             self.common_args["allow_redirects"] = False
 
@@ -228,7 +228,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             self.common_args["allow_redirects"] = False
 
@@ -244,7 +244,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -267,7 +267,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -293,7 +293,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -319,7 +319,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -357,7 +357,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -392,7 +392,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             self.common_args["allow_redirects"] = False
 
@@ -418,7 +418,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -460,7 +460,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -502,7 +502,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -533,7 +533,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -575,7 +575,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
@@ -617,7 +617,7 @@ class TestWorkspaces(TestCase):
         """
 
         # patch the requests module in the endpoint
-        with patch.object(endpoint, "requests") as mock_requests:
+        with patch.object(self.api.workspaces, "_session") as mock_requests:
 
             # mock response to return "status_code" 200 and "json" data
             mock_response = mock.Mock()
