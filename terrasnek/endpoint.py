@@ -3,6 +3,7 @@ Module containing class for common endpoint implementations across all TFC Endpo
 """
 
 from abc import ABC, abstractmethod
+from typing import Any, Dict, Optional
 
 import json
 import logging
@@ -252,7 +253,7 @@ class TFCEndpoint(ABC):
         req = self._session.post(url, data=json.dumps(data), headers=self._headers, verify=self._verify)
 
         if req.status_code in [HTTP_OK, HTTP_CREATED]:
-            results = json.loads(req.content)
+            results: Optional[Dict[str, Any]] = json.loads(req.content)
             self._logger.debug(f"POST to {url} successful")
         elif req.status_code in [HTTP_ACCEPTED, HTTP_NO_CONTENT]:
             self._logger.debug(f"POST to {url} successful")
@@ -300,7 +301,11 @@ class TFCEndpoint(ABC):
         headers = dict.copy(self._headers)
         if octet is True:
             headers["Content-Type"] = "application/octet-stream"
-            data = bytes(data, "utf-8")
+            if isinstance(data, str):  # type narrowing since bytes() doesn't accept bytes
+                data = bytes(data, "utf-8")
+            elif isinstance(data, bytes):
+                data = data
+                # requests.post(data) also accepts a file-like object and dict, but do we?
 
         self._logger.debug(f"Trying HTTP PUT to URL: {url} ...")
         req = self._session.put(url, data=data, headers=headers, verify=self._verify)
@@ -363,27 +368,28 @@ class TFCEndpoint(ABC):
         Returns an object with two arrays of objects.
         """
         current_page_number = 1
-        list_resp = \
-            self._list(url, page=current_page_number, page_size=MAX_PAGE_SIZE, include=include, \
-                search=search, filters=filters, query=query)
-
-        if "meta" in list_resp:
-            total_pages = list_resp["meta"]["pagination"]["total-pages"]
-        elif "pagination" in list_resp:
-            total_pages = list_resp["pagination"]["total_pages"]
-
         included = []
         data = []
-        while current_page_number <= total_pages:
+        total_pages = 1
+
+        while current_page_number:
             list_resp = \
                 self._list(url, page=current_page_number, page_size=MAX_PAGE_SIZE, \
                     include=include, search=search, filters=filters, query=query)
             data += list_resp["data"]
 
+            if "meta" in list_resp:
+                total_pages = list_resp["meta"]["pagination"]["total-pages"]
+            elif "pagination" in list_resp:
+                total_pages = list_resp["pagination"]["total_pages"]
+
             if "included" in list_resp:
                 included += list_resp["included"]
 
             current_page_number += 1
+
+            if current_page_number > total_pages:
+                break
 
         return {
             "data": data,

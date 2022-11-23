@@ -50,6 +50,7 @@ class TFCWorkspaces(TFCEndpoint):
             url = f"{self._ws_api_v2_base_url}/{workspace_id}"
         else:
             self._logger.error("Arguments workspace_name or workspace_id must be defined")
+            raise ValueError("Arguments workspace_name or workspace_id must be defined")
 
         return self._destroy(url)
 
@@ -114,6 +115,7 @@ class TFCWorkspaces(TFCEndpoint):
             url = f"{self._ws_api_v2_base_url}/{workspace_id}"
         else:
             self._logger.error("Arguments workspace_name or workspace_id must be defined")
+            raise ValueError("Arguments workspace_name or workspace_id must be defined")
 
         return self._show(url, include=include)
 
@@ -144,6 +146,7 @@ class TFCWorkspaces(TFCEndpoint):
             url = f"{self._ws_api_v2_base_url}/{workspace_id}"
         else:
             self._logger.error("Arguments workspace_name or workspace_id must be defined")
+            raise ValueError("Arguments workspace_name or workspace_id must be defined")
         return self._update(url, payload)
 
     def assign_ssh_key(self, workspace_id, payload):

@@ -159,5 +159,8 @@ class TFCConfigVersions(TFCEndpoint):
             url = f"{self._config_version_api_v2_base_url}/{config_version_id}/download"
         elif run_id is not None:
             url = f"{self._runs_api_v2_base_url}/{run_id}/configuration-version/download"
+        else:
+            self._logger.error("Must provide either config_version_id or run_id")
+            raise ValueError("Must provide either config_version_id or run_id")
 
         return self._get(url)

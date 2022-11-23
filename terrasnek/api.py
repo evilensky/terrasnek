@@ -6,10 +6,12 @@ API access.
 """
 
 from urllib.parse import urlparse
+from typing import Any, Dict, Optional
 import json
 import logging
 import requests
 import urllib3
+import urllib3.exceptions
 
 from ._constants import \
     TFC_SAAS_URL, TFC_SAAS_HOSTNAME, HTTP_OK, TERRASNEK_LOG_LEVEL, TERRASNEK_VERSION
@@ -102,10 +104,9 @@ class TFC():
         },
         "org-required": {
             "account": TFCAccount,
+            "applies": TFCApplies,
             "agents": TFCAgents,
             "agent_tokens": TFCAgentTokens,
-            "applies": TFCApplies,
-            "assessment_results": TFCAssessmentResults,
             "comments": TFCComments,
             "config_versions": TFCConfigVersions,
             "cost_estimates": TFCCostEstimates,
@@ -170,59 +171,59 @@ class TFC():
         self.__version__ = TERRASNEK_VERSION
         self.version = TERRASNEK_VERSION
 
-        self.account: TFCAccount = None
-        self.admin_module_sharing: TFCAdminModuleSharing = None
-        self.admin_orgs: TFCAdminOrgs = None
-        self.admin_runs: TFCAdminRuns = None
-        self.admin_settings: TFCAdminSettings = None
-        self.admin_terraform_versions: TFCAdminTerraformVersions = None
-        self.admin_users: TFCAdminUsers = None
-        self.admin_workspaces: TFCAdminWorkspaces = None
-        self.agents: TFCAgents = None
-        self.agent_tokens: TFCAgentTokens = None
-        self.applies: TFCApplies = None
-        self.assessment_results: TFCAssessmentResults = None
-        self.audit_trails: TFCAuditTrails = None
-        self.comments: TFCComments = None
-        self.config_versions: TFCConfigVersions = None
-        self.cost_estimates: TFCCostEstimates = None
-        self.feature_sets: TFCFeatureSets = None
-        self.invoices: TFCInvoices = None
-        self.ip_ranges: TFCIPRanges = None
-        self.orgs: TFCOrgs = None
-        self.oauth_clients: TFCOAuthClients = None
-        self.oauth_tokens: TFCOAuthTokens = None
-        self.org_memberships: TFCOrgMemberships = None
-        self.org_tags: TFCOrgTags = None
-        self.org_tokens: TFCOrgTokens = None
-        self.plans: TFCPlans = None
-        self.plan_exports: TFCPlanExports = None
-        self.policies: TFCPolicies = None
-        self.policy_checks: TFCPolicyChecks = None
-        self.policy_sets: TFCPolicySets = None
-        self.policy_set_params: TFCPolicySetParams = None
-        self.registry_providers: TFCRegistryProviders = None
-        self.notification_configs: TFCNotificationConfigurations = None
-        self.registry_modules: TFCRegistryModules = None
-        self.run_tasks: TFCRunTasks = None
-        self.run_tasks_integration: TFCRunTasksIntegration = None
-        self.run_triggers: TFCRunTriggers = None
-        self.runs: TFCRuns = None
-        self.state_versions: TFCStateVersions = None
-        self.state_version_outputs: TFCStateVersionOutputs = None
-        self.ssh_keys: TFCSSHKeys = None
-        self.teams: TFCTeams = None
-        self.team_access: TFCTeamAccess = None
-        self.team_memberships: TFCTeamMemberships = None
-        self.team_tokens: TFCTeamTokens = None
-        self.users: TFCUsers = None
-        self.user_tokens: TFCUserTokens = None
-        self.vars: TFCVars = None
-        self.var_sets: TFCVarSets = None
-        self.vcs_events: TFCVCSEvents = None
-        self.workspace_vars: TFCWorkspaceVars = None
-        self.workspace_resources: TFCWorkspaceResources = None
-        self.workspaces: TFCWorkspaces = None
+        self.account: Optional[TFCAccount] = None
+        self.admin_module_sharing: Optional[TFCAdminModuleSharing] = None
+        self.admin_orgs: Optional[TFCAdminOrgs] = None
+        self.admin_runs: Optional[TFCAdminRuns] = None
+        self.admin_settings: Optional[TFCAdminSettings] = None
+        self.admin_terraform_versions: Optional[TFCAdminTerraformVersions] = None
+        self.admin_users: Optional[TFCAdminUsers] = None
+        self.admin_workspaces: Optional[TFCAdminWorkspaces] = None
+        self.agents: Optional[TFCAgents] = None
+        self.agent_tokens: Optional[TFCAgentTokens] = None
+        self.applies: Optional[TFCApplies] = None
+        self.assessment_results: Optional[TFCAssessmentResults] = None
+        self.audit_trails: Optional[TFCAuditTrails] = None
+        self.comments: Optional[TFCComments] = None
+        self.config_versions: Optional[TFCConfigVersions] = None
+        self.cost_estimates: Optional[TFCCostEstimates] = None
+        self.feature_sets: Optional[TFCFeatureSets] = None
+        self.invoices: Optional[TFCInvoices] = None
+        self.ip_ranges: Optional[TFCIPRanges] = None
+        self.orgs: Optional[TFCOrgs] = None
+        self.oauth_clients: Optional[TFCOAuthClients] = None
+        self.oauth_tokens: Optional[TFCOAuthTokens] = None
+        self.org_memberships: Optional[TFCOrgMemberships] = None
+        self.org_tags: Optional[TFCOrgTags] = None
+        self.org_tokens: Optional[TFCOrgTokens] = None
+        self.plans: Optional[TFCPlans] = None
+        self.plan_exports: Optional[TFCPlanExports] = None
+        self.policies: Optional[TFCPolicies] = None
+        self.policy_checks: Optional[TFCPolicyChecks] = None
+        self.policy_sets: Optional[TFCPolicySets] = None
+        self.policy_set_params: Optional[TFCPolicySetParams] = None
+        self.registry_providers: Optional[TFCRegistryProviders] = None
+        self.notification_configs: Optional[TFCNotificationConfigurations] = None
+        self.registry_modules: Optional[TFCRegistryModules] = None
+        self.run_tasks: Optional[TFCRunTasks] = None
+        self.run_tasks_integration: Optional[TFCRunTasksIntegration] = None
+        self.run_triggers: Optional[TFCRunTriggers] = None
+        self.runs: Optional[TFCRuns] = None
+        self.state_versions: Optional[TFCStateVersions] = None
+        self.state_version_outputs: Optional[TFCStateVersionOutputs] = None
+        self.ssh_keys: Optional[TFCSSHKeys] = None
+        self.teams: Optional[TFCTeams] = None
+        self.team_access: Optional[TFCTeamAccess] = None
+        self.team_memberships: Optional[TFCTeamMemberships] = None
+        self.team_tokens: Optional[TFCTeamTokens] = None
+        self.users: Optional[TFCUsers] = None
+        self.user_tokens: Optional[TFCUserTokens] = None
+        self.vars: Optional[TFCVars] = None
+        self.var_sets: Optional[TFCVarSets] = None
+        self.vcs_events: Optional[TFCVCSEvents] = None
+        self.workspace_vars: Optional[TFCWorkspaceVars] = None
+        self.workspace_resources: Optional[TFCWorkspaceResources] = None
+        self.workspaces: Optional[TFCWorkspaces] = None
 
         self._token = None
         self._headers = None
@@ -321,8 +322,10 @@ class TFC():
         entitlements = None
 
         if self.is_terraform_cloud():
+            assert self.orgs is not None  # Type narrowing
+            assert isinstance(self._current_org, str) # type narrowing
             try:
-                entitlements = self.orgs.entitlements(self._current_org)["data"]["attributes"]
+                entitlements: Dict[str, Any] = self.orgs.entitlements(self._current_org)["data"]["attributes"]
             except TFCHTTPNotFound:
                 self._logger.debug("Entitlements API endpoint not found. No entitlements recorded.")
         else:
@@ -347,6 +350,7 @@ class TFC():
         """
         Allows for the user to retrieve the token from the API object.
         """
+        
         return self._token
 
     def is_terraform_cloud(self):
