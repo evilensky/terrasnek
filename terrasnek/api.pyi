@@ -1,13 +1,9 @@
 import logging
-from typing import Protocol, Any, Optional, Dict, Union, Literal, List
+from typing import Protocol, Any, Optional, Dict, Literal, List
+
+from .orgs import TFCOrgs
 from .workspaces import TFCWorkspaces
-from ._constants import (
-    TFC_SAAS_URL,
-    TFC_SAAS_HOSTNAME,
-    HTTP_OK,
-    TERRASNEK_LOG_LEVEL,
-    TERRASNEK_VERSION,
-)
+
 
 class ListAllProtocol(Protocol):
 
@@ -30,7 +26,8 @@ class TFC(Protocol):
     ) -> None: ...
 
 
-    # workspaces: TFCWorkspaces
+    workspaces: TFCWorkspaces = ...
+    orgs: TFCOrgs = ...
     def get_token(self) -> str: ...
     def get_entitlements(self) -> Optional[List[str]]: ...
     def set_org(self, org_name: str) -> None: ...

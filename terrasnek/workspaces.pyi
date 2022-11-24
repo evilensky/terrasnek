@@ -1,9 +1,26 @@
-from logging import Logger
-from typing import Protocol, Any, Dict, Optional
+from typing import Any, Dict, Optional
+from requests import Session
+
 from terrasnek.api import ListAllProtocol
 from terrasnek.endpoint import TFCEndpoint
 
+
 class TFCWorkspaces(ListAllProtocol, TFCEndpoint):
+    def __init__(
+            self,
+            instance_url: str,
+            org_name: str,
+            headers: Optional[Dict[str, str]],
+            well_known_paths: Optional[Dict[str, str]],
+            verify: bool,
+            log_level: Optional[str],
+            session: Optional[Session],
+    ): ...
+        #super().__init__(instance_url, org_name, headers, well_known_paths, verify, log_level, session)
+
+    # _org_api_v2_base_url: str = ...
+    _ws_api_v2_base_url: str = ...
+
     def create(self, payload: dict) -> dict: ...
     def destroy(self, workspace_id: str) -> dict: ...
     def force_unlock(self, workspace_id: str) -> Any: ...
