@@ -6,7 +6,7 @@ API access.
 """
 
 from urllib.parse import urlparse
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 import json
 import logging
 import requests
@@ -319,13 +319,15 @@ class TFC():
         """
         Allows for the user to retrieve the entitlements to the API for the current org.
         """
-        entitlements = None
+        entitlements: Optional[Union[Dict[str,Any], bytes]] = None
 
         if self.is_terraform_cloud():
             assert self.orgs is not None  # Type narrowing
             assert isinstance(self._current_org, str) # type narrowing
             try:
-                entitlements: Dict[str, Any] = self.orgs.entitlements(self._current_org)["data"]["attributes"]
+                entitlements = self.orgs.entitlements(self._current_org)
+                assert isinstance(entitlements, dict) # type narrowing
+                entitlements = entitlements["data"]["attributes"]
             except TFCHTTPNotFound:
                 self._logger.debug("Entitlements API endpoint not found. No entitlements recorded.")
         else:

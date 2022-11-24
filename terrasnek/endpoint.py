@@ -305,7 +305,9 @@ class TFCEndpoint(ABC):
                 data = bytes(data, "utf-8")
             elif isinstance(data, bytes):
                 data = data
-                # requests.post(data) also accepts a file-like object and dict, but do we?
+                # requests.post(data) also accepts a file-like object and dict
+            elif isinstance(data, dict):
+                data = data
 
         self._logger.debug(f"Trying HTTP PUT to URL: {url} ...")
         req = self._session.put(url, data=data, headers=headers, verify=self._verify)

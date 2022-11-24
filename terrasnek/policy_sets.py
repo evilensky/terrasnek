@@ -178,7 +178,9 @@ class TFCPolicySets(TFCEndpoint):
         `Policy Sets Upload API Doc Reference \
             <https://www.terraform.io/docs/cloud/api/policy-sets.html#upload-policy-set-versions>`_
         """
-        url = self.show_policy_set_version(policy_set_version_id)["data"]["links"]["upload"]
+        resp = self.show_policy_set_version(policy_set_version_id)
+        assert isinstance(resp, dict)
+        url = resp["data"]["links"]["upload"]
         data = None
         with open(path_to_tarball, 'rb') as data_bytes:
             data = data_bytes.read()

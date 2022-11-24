@@ -55,6 +55,8 @@ class TFCPlanExports(TFCEndpoint):
         """
         url = f"{self._endpoint_base_url}/{plan_export_id}/download"
         results = self._get(url, return_raw=True, allow_redirects=True)
+        
+        assert isinstance(results, bytes)
         with open(target_path, 'wb') as target_file:
             target_file.write(results)
 

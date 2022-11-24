@@ -52,6 +52,7 @@ class TFCPlans(TFCEndpoint):
             raise ValueError("Arguments plan_id or run_id must be defined")
 
         results = self._get(url, return_raw=True, allow_redirects=True)
+        assert isinstance(results, bytes)
 
         with open(target_path, 'wb') as target_file:
             target_file.write(results)

@@ -94,6 +94,7 @@ class TFCPolicies(TFCEndpoint):
         """
         url = f"{self._endpoint_base_url}/{policy_id}/download"
         byte_results = self._get(url, return_raw=True, allow_redirects=True, include=include)
+        assert isinstance(byte_results, bytes)  # Type narrowing
         return byte_results.decode("utf-8")
 
     def upload(self, policy_id, payload):
