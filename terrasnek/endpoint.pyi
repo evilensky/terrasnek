@@ -1,7 +1,8 @@
 from logging import Logger
-from typing import Protocol, Optional, Union, Literal, Dict, List, Any, overload
+from typing import Protocol, Optional, Union, Literal, Dict, List, Any
 
 from requests import Session
+
 
 class TFCEndpoint(Protocol):
     def __init__(
@@ -11,7 +12,7 @@ class TFCEndpoint(Protocol):
         headers: Optional[Dict[str, str]],
         well_known_paths: Optional[Dict[str, str]],
         verify: bool,
-        log_level: Optional[str],
+        log_level: Optional[Union[str, int]],
         session: Optional[Session] = None,
     ): ...
     _verify: bool = ...
@@ -46,7 +47,7 @@ class TFCEndpoint(Protocol):
         filters: Optional[List] = ...,
         page: Optional[int] = ...,
         page_size: Optional[int] = ...,
-        search: Optional[str] = ...,
+        search: Optional[Dict] = ...,
         include: Optional[str] = ...,
         sort: Optional[str] = ...,
         offset: Optional[int] = ...,
@@ -73,21 +74,21 @@ class TFCEndpoint(Protocol):
     def _list(
         self,
         url: str,
-        return_raw: bool = False,
-        allow_redirects: bool = False,
-        query: Optional[str] = None,
-        filters: Optional[List] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        search: Optional[str] = None,
-        include: Optional[str] = None,
-        sort: Optional[str] = None,
-        offset: Optional[int] = None,
-        limit: Optional[int] = None,
-        provider: Optional[str] = None,
-        namespace: Optional[str] = None,
-        verified: Optional[bool] = False,
-        since: Optional[str] = None,
+        return_raw: bool = ...,
+        allow_redirects: bool = ...,
+        query: Optional[str] = ...,
+        filters: Optional[List] = ...,
+        page: Optional[int] = ...,
+        page_size: Optional[int] = ...,
+        search: Optional[Dict] = ...,
+        include: Optional[str] = ...,
+        sort: Optional[str] = ...,
+        offset: Optional[int] = ...,
+        limit: Optional[int] = ...,
+        provider: Optional[str] = ...,
+        namespace: Optional[str] = ...,
+        verified: Optional[bool] = ...,
+        since: Optional[str] = ...
     ) -> Dict: ...
     def _show(self, url: str, include: Optional[str] = None) -> Dict: ...
     def _update(self, url: str, payload: Dict) -> Dict: ...
