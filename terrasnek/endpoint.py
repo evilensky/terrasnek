@@ -100,6 +100,8 @@ class TFCEndpoint(ABC):
 
         results = None
 
+        params = {}
+
         q_options = []
 
         if query is not None:
@@ -136,10 +138,10 @@ class TFCEndpoint(ABC):
 
         if search is not None:
             if "name" in search:
-                q_options.append(f"search[name]={search['name']}")
+                params.update({"search[name]": search["name"]})
 
             if "tags" in search:
-                q_options.append(f"search[tags]={search['tags']}")
+                params.update({"search[tags]": search["tags"]})
 
         if since is not None:
             q_options.append(f"since={since}")
@@ -167,7 +169,8 @@ class TFCEndpoint(ABC):
 
         self._logger.debug(f"Trying HTTP GET to URL: {url} ...")
         req = self._session.get(\
-            url, headers=self._headers, verify=self._verify, allow_redirects=allow_redirects)
+            url, headers=self._headers, verify=self._verify, allow_redirects=allow_redirects,
+                params=params)
 
         if req.status_code == HTTP_OK and not return_raw:
             results = json.loads(req.content)
