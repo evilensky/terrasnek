@@ -31,3 +31,5 @@ jobs:
       - name: run mypy
         run: |
           mypy terrasnek/ --check-untyped-defs
+      - name: Run pyright
+        uses: jakebailey/pyright-action@v1.4.1
