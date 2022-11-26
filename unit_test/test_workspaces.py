@@ -176,7 +176,7 @@ class TestWorkspaces(TestCase):
             self.api.workspaces.list()
             mock_requests.get.assert_called_once_with(
                 "https://app.terraform.io/api/v2/organizations/test_org/workspaces",
-                **self.common_args,
+                **self.common_args, params={},
             )
 
     def test_workspace_list_all(self):
@@ -252,11 +252,13 @@ class TestWorkspaces(TestCase):
                         "https://app.terraform.io/api/v2/organizations/test_org/workspaces?page[number]=1&page["
                         "size]=100",
                         **self.common_args,
+                        params={},
                     ),
                     call(
                         "https://app.terraform.io/api/v2/organizations/test_org/workspaces?page[number]=2&page["
                         "size]=100",
                         **self.common_args,
+                        params={},
                     ),
                 ],
                 any_order=True,
@@ -275,6 +277,7 @@ class TestWorkspaces(TestCase):
             mock_requests.get.assert_called_once_with(
                 "https://app.terraform.io/api/v2/organizations/test_org/workspaces/test_workspace_id",
                 **self.common_args,
+                params={},
             )
 
     def test_workspace_unlock(self):
@@ -443,6 +446,7 @@ class TestWorkspaces(TestCase):
             mock_requests.get.assert_called_once_with(
                 "https://app.terraform.io/api/v2/workspaces/ws-123456/relationships/remote-state-consumers",
                 **self.common_args,
+                params={},
             )
 
     def test_replace_remote_state_consumers(self):
@@ -549,6 +553,7 @@ class TestWorkspaces(TestCase):
                 "https://app.terraform.io/api/v2/workspaces/ws-123456/relationships/tags",
                 **self.common_args,
                 allow_redirects=False,
+                params={},
             )
 
     def test_list_all_tags(self):
@@ -696,11 +701,13 @@ class TestWorkspaces(TestCase):
                         "https://app.terraform.io/api/v2/workspaces/ws-123456/resources?page[number]=1&page[size]=100",
                         **self.common_args,
                         allow_redirects=False,
+                        params={},
                     ),
                     mock.call(
                         "https://app.terraform.io/api/v2/workspaces/ws-123456/resources?page[number]=2&page[size]=100",
                         **self.common_args,
                         allow_redirects=False,
+                        params={},
                     ),
                 ]
             )
